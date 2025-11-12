@@ -1,0 +1,8 @@
+package wrriters;
+
+public abstract class WriterCreator {
+	
+	public abstract WriterProduct factoryMethod(String typ);
+
+
+}
