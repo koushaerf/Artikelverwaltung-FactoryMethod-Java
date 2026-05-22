@@ -1,0 +1,40 @@
+import numpy as np
+
+class Neuron:
+    def __init__(self, w):
+        self.w = w
+
+    def setWeight(self, w):
+        self.w = w
+
+    def changeWeight(self, delta_w):
+        "Gewichte kleiner machen."""
+        self.w = self.w - delta_w
+
+    def activation(self, x):
+        """Die Aktivierungsfunktion des Neurons. Berechnen der Sigmoide von x."""
+        return 1.0/(1+np.exp(-x))
+
+    def derive_activation(self, x):
+        """Die Ableitung der Aktivierungsfunktion"""
+        return self.activation(x)*(1-self.activation(x))
+
+    def propagation(self, x):
+        """Die Propagierungsfunktion des Neuron. Berechnen des Skalarprodukts von x."""
+        return np.dot(x, self.w)
+
+    def predict(self, x):
+        """Das Neuron anwenden. Berechnet die Ausgabe des Neurons."""
+        return self.activation(self.propagation(x))
+
+
+    # Initialisierung mit Gewichten und Bias. Der letzte Wert (0.5) ist der Bias.
+    myNeuron = Neuron(np.array([1, -2, 2, -8, 0.5]))
+    # Aufruf des Neurons mit Eingabe x. Der letzte Wert ist der Input für den Bias (=1)
+    outh = myNeuron.propagation(np.array([0.5, 3, 3, 0.125, 1]))
+    print('Das Neuron gibt für das Skalarprodukt h=%.3f aus.' % outh)
+    outy = myNeuron.predict(np.array([0.5, 3, 3, 0.125, 1]))
+    print('Das Neuron gibt für die Aktivierung   y=%.3f aus.' % outy)
+
+
+py -3.9 Aufgabe1Numpy.py
